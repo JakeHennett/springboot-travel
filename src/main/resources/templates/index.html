@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Java Flights</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: lightgoldenrodyellow;
+            color: darkgoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Flight Details</h1>
+    <p>Please select your flight details below.</p>
+    <div>
+        <label for="departure">Departure:</label>
+        <select name="departure" id="departure">
+            <option value="gsp">GSP - Greenville-Spartanburg International Airport</option>
+            <option value="clt">CLT - Charlotte Douglas International Airport</option>
+            <option value="atl">ATL - Hartsfield–Jackson Atlanta International Airport</option>
+            <option value="mht">MHT - Manchester-Boston Regional Airport</option>
+        </select>
+    </div>
+    <div>
+        <label for="arrival">Arrival:</label>
+        <select name="arrival" id="arrival">
+            <option value="gsp">GSP - Greenville-Spartanburg International Airport</option>
+            <option value="clt">CLT - Charlotte Douglas International Airport</option>
+            <option value="atl">ATL - Hartsfield–Jackson Atlanta International Airport</option>
+            <option value="mht">MHT - Manchester-Boston Regional Airport</option>
+        </select>
+    </div>
+    <div>
+        <label for="travel-date">Date:</label>
+        <input type="date" id="travel-date" name="travel-date">
+    </div>
+    <div>
+        <label for="party-size">Party Size:</label>
+        <input type="number" id="party-size" name="party-size" value="1">
+    </div>
+    <div>
+        <button onclick="submit()">Submit</button>
+    </div>
+
+    <script>
+        function submit() {
+            var response =
+                "Requested " + document.getElementById("party-size").value
+                + " ticket(s) on " + document.getElementById("travel-date").value
+                + " from " + document.getElementById("departure").value
+                + " to " + document.getElementById("arrival").value
+                + "."
+            alert(response);
+        }
+    </script>
+
+</body>
+
+</html>
