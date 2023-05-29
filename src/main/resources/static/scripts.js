@@ -20,9 +20,9 @@ async function getAccessToken() {
 
     var formBody = [];
     for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
 
@@ -52,11 +52,25 @@ async function getFlightOffers(origin = "GSP", destination = "LON", departureDat
     let accessToken = await getAccessToken();
     let auth = 'Bearer ' + accessToken;
     let url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
-    let queryParams = "originLocationCode="+ origin +
-    "&destinationLocationCode="+ destination +
-    "&departureDate="+ departureDate +
-    "&adults="+ adults +
-    "&max=" + max;
+    let queryParams = "" +
+        "originLocationCode=" + document.getElementById("departure").value +
+        "&destinationLocationCode=" + document.getElementById("arrival").value +
+        "&departureDate=" + document.getElementById("travel-date").value +
+        "&adults=" + document.getElementById("party-size").value +
+        "&max=" + max;
+
+    //TODO: Edit queryParams to read from input params rather than html elements
+    // "originLocationCode="+ origin +
+    // "&destinationLocationCode="+ destination +
+    // "&departureDate="+ departureDate +
+    // "&adults="+ adults +
+    // "&max=" + max;
+
+    // "Requested " + document.getElementById("party-size").value
+    // + " ticket(s) on " + document.getElementById("travel-date").value
+    // + " from " + document.getElementById("departure").value
+    // + " to " + document.getElementById("arrival").value
+
     let endpoint = url + "?" + queryParams;
 
     try {
