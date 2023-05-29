@@ -66,11 +66,6 @@ async function getFlightOffers(origin = "GSP", destination = "LON", departureDat
     // "&adults="+ adults +
     // "&max=" + max;
 
-    // "Requested " + document.getElementById("party-size").value
-    // + " ticket(s) on " + document.getElementById("travel-date").value
-    // + " from " + document.getElementById("departure").value
-    // + " to " + document.getElementById("arrival").value
-
     let endpoint = url + "?" + queryParams;
 
     try {
@@ -93,24 +88,4 @@ async function getFlightOffers(origin = "GSP", destination = "LON", departureDat
     } catch (error) {
 
     }
-}
-
-//Example HTTP request function
-async function getForecast(latitude, longitude) {
-    let forecastRequestString = "http://localhost:8080/weather/forecast/" + latitude + "/" + longitude;
-
-    let headers = new Headers([
-        ['Content-Type', 'application/json'],
-        ['Accept', 'application/json']
-    ]);
-
-    let request = new Request(forecastRequestString, {
-        method: 'GET',
-        headers: headers
-    });
-
-    let result = await fetch(request);
-    let response = await result.json();
-    let forecast = response.properties.periods[0].detailedForecast;
-    alert(forecast);
 }
