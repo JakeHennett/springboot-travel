@@ -48,6 +48,12 @@ async function getAccessToken() {
     return accessToken
 }
 
+async function getFlightOffers() {
+    let accessToken = getAccessToken();
+
+    alert(accessToken);
+}
+
 //Example HTTP request function
 async function getForecast(latitude, longitude) {
     let forecastRequestString = "http://localhost:8080/weather/forecast/" + latitude + "/" + longitude;
