@@ -56,11 +56,8 @@ async function getFlightOffers(origin = "GSP", destination = "LON", departureDat
     "&destinationLocationCode="+ destination +
     "&departureDate="+ departureDate +
     "&adults="+ adults +
-    "&max=" + max
-    //for testing purposes
-    //queryParams = "originLocationCode=GSP&destinationLocationCode=LON&departureDate={{departureDate}}&returnDate={{returnDate}}&adults=2&max=5"
-    //queryParams = "originLocationCode=GSP&destinationLocationCode=LON&departureDate=2023-06-11&adults=2&max=5"
-    let endpoint = url + "?" + queryParams
+    "&max=" + max;
+    let endpoint = url + "?" + queryParams;
 
     try {
         const config = {
@@ -73,9 +70,9 @@ async function getFlightOffers(origin = "GSP", destination = "LON", departureDat
         const response = await fetch(endpoint, config)
         if (response.ok) {
             let responseJSON = await response.json();
-            // let okta = await response.json();
-            // accessToken = okta.access_token;
-            alert();
+            let responseSummary = "Your ticket will cost " + responseJSON.data[0].price.total
+            alert(responseSummary);
+            return responseSummary;
         } else {
             //
         }
