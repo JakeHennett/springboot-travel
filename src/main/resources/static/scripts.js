@@ -36,7 +36,8 @@ async function getAccessToken() {
         }
         const response = await fetch(url, config)
         if (response.ok) {
-            accessToken = response
+            let okta = await response.json();
+            accessToken = okta.access_token;
         } else {
             //
         }
