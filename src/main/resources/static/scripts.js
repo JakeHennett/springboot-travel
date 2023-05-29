@@ -48,10 +48,39 @@ async function getAccessToken() {
     return accessToken
 }
 
-async function getFlightOffers() {
-    let accessToken = getAccessToken();
+async function getFlightOffers(origin, destination, departureDate, returnDate, adults, max) {
+    let accessToken = await getAccessToken();
+    let auth = 'Bearer ' + accessToken;
+    let url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
+    let queryParams = "originLocationCode="+ origin +
+    "&destinationLocationCode="+ destination +
+    "&departureDate="+ departureDate +
+    "&returnDate="+ returnDate +
+    "&adults="+ adults +
+    "&max=" + max
+    //for testing purposes
+    queryParams = "originLocationCode=GSP&destinationLocationCode=LON&departureDate={{departureDate}}&returnDate={{returnDate}}&adults=2&max=5"
+    let endpoint = url + "?" + queryParams
 
-    alert(accessToken);
+    try {
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': auth
+            }
+        }
+        const response = await fetch(endpoint, config)
+        if (response.ok) {
+            let responseJSON = await response.json();
+            // let okta = await response.json();
+            // accessToken = okta.access_token;
+        } else {
+            //
+        }
+    } catch (error) {
+
+    }
 }
 
 //Example HTTP request function
