@@ -1,5 +1,7 @@
 package com.snhu.travel;
 //my variant on ReadXmlDomParser
+//this one actually works
+//this can be eventually deleted, as the logic has been offloaded into the Security Controller
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

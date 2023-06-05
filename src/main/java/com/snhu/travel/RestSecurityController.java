@@ -3,11 +3,9 @@ package com.snhu.travel;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,24 +16,16 @@ import org.xml.sax.SAXException;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 @RestController
@@ -119,7 +109,7 @@ public class RestSecurityController {
         return false;
     }
 
-    // http://localhost:8080/security/validate?uname=default&pass=password
+    // http://localhost:8080/security/register?uname=default&pass=password
     @GetMapping(value = "/security/register")
     private void registerUser(@RequestParam String uname, @RequestParam String pass) {
         // TODO: Add some conditions at this level. No duplicate users, etc.
