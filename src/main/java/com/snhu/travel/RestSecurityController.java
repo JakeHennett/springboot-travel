@@ -89,11 +89,30 @@ public class RestSecurityController {
         return userList;
     }
 
+    //http://localhost:8080/security/validate?uname=default&pass=password
     @GetMapping(value = "/security/validate")
     private boolean validateUser(@RequestParam String uname, @RequestParam String pass) {
+        boolean response = false;
         List<User> userList = getAllUsers();
         User validate = new User(uname, pass);
-        boolean response = userList.contains(validate);
+        // boolean response = userList.contains(validate);
+        System.out.println(validate.getUsername());
+        System.out.println(validate.getPassword());
+
+        for (User checkUser : userList)
+        {
+            System.out.println(checkUser.getUsername());
+            System.out.println(checkUser.getPassword());
+
+            if(validate.getUsername().equals(checkUser.getUsername()))
+            {
+                if(validate.getPassword().equals(checkUser.getPassword()))
+                {
+                    response = true;
+                }
+            }
+        }
+
 
         return response;
     }
