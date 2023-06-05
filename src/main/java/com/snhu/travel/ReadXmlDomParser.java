@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class ReadXmlDomParser {
 
-    private static final String FILENAME = "/users/mkyong/staff.xml";
+    private static final String FILENAME = "c:\\test\\staff.xml";
 
     public static void main(String[] args) {
 
