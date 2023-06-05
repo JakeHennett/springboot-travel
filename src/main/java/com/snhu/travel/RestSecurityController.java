@@ -24,6 +24,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 @RestController
 public class RestSecurityController {
 
@@ -108,15 +122,78 @@ public class RestSecurityController {
     // http://localhost:8080/security/validate?uname=default&pass=password
     @GetMapping(value = "/security/register")
     private void registerUser(@RequestParam String uname, @RequestParam String pass) {
-        //TODO: Add some conditions at this level. No duplicate users, etc.
-        //TODO: Make it a POST and not a GET
+        // TODO: Add some conditions at this level. No duplicate users, etc.
+        // TODO: Make it a POST and not a GET
         addUser(uname, pass);
     }
 
-    private void addUser(String uname, String pass) {
+    private boolean addUser(String uname, String pass) {
         User newUser = new User(uname, pass);
         List<User> userList = getAllUsers();
         userList.add(newUser);
-        //TODO: write to xml file here.
+
+        try {
+            writeToFile(userList);
+            return true;
+        } catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void writeToFile(List<User> userList) throws TransformerException, ParserConfigurationException {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // root elements
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement("users");
+        doc.appendChild(rootElement);
+
+        // repeat here
+        for (User buildUser : userList) {
+            // build out the individual user element
+
+            Element user = doc.createElement("user");
+            rootElement.appendChild(user);
+
+            Element username = doc.createElement("username");
+            username.setTextContent(buildUser.getUsername());
+            user.appendChild(username);
+
+            Element password = doc.createElement("password");
+            password.setTextContent(buildUser.getPassword());
+            user.appendChild(password);
+        }
+
+        // write dom document to a file
+        try (FileOutputStream output = new FileOutputStream("c:\\test\\users.xml")) {
+            writeXml(doc, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // write doc to output stream
+    private static void writeXml(Document doc,
+            OutputStream output)
+            throws TransformerException {
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+
+        // pretty print XML
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(output);
+
+        transformer.transform(source, result);
+
     }
 }
