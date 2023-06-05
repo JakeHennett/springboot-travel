@@ -5,6 +5,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class RestSecurityController {
@@ -33,8 +36,9 @@ public class RestSecurityController {
 
     // http://localhost:8080/security/allusers?continue
     @GetMapping(value = "/security/allusers")
-    private String getAllUsers() {
+    private List<User> getAllUsers() {
         String result = "";
+        List<User> userList = new ArrayList();
 
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -71,6 +75,9 @@ public class RestSecurityController {
                     result += "\nCurrent Element :" + node.getNodeName();
                     result += "\nUsername : " + username;
                     result += "\nPassword : " + password;
+
+                    User newUser = new User(username, password);
+                    userList.add(newUser);
                 }
             }
 
@@ -78,9 +85,18 @@ public class RestSecurityController {
             e.printStackTrace();
         }
 
-        return result;
+        System.out.println(result);
+        return userList;
     }
 
+    @GetMapping(value = "/security/validate")
+    private boolean validateUser(@RequestParam String uname, @RequestParam String pass) {
+        List<User> userList = getAllUsers();
+        User validate = new User(uname, pass);
+        boolean response = userList.contains(validate);
+
+        return response;
+    }
     // @GetMapping(value = "/callclienthello")
     // private String getHelloClient() {
     // String uri = "http://localhost:8080/test";

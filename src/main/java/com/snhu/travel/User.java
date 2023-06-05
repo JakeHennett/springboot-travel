@@ -4,6 +4,16 @@ public class User {
     private String username;
     private String password;
 
+    public User(String uname, String pass) {
+        username = uname;
+        password = pass;
+    }
+
+    public User(String uname) {
+        username = uname;
+        password = "password";
+    }
+
     public String getUsername() {
         return username;
     }
