@@ -8,6 +8,15 @@ function submit() {
     alert(response);
 }
 
+async function registerUser() {
+    //call this endpoint
+    // http://localhost:8080/security/register?uname=default&pass=password
+}
+
+async function validateUser() {
+    
+}
+
 async function getAccessToken() {
     let accessToken = ""
     let url = "https://test.api.amadeus.com/v1/security/oauth2/token"
