@@ -34,24 +34,26 @@
         </label>
     </div>
 
-    <script src="scripts.js"></script>
+    <!--
+         <script src="scripts.js"></script>
+    Scripts file isn't refreshing in devtools. Moving scripts to tags below for now
+ -->
 
-    <!-- <script>
-    function submit() {
-        var response = 
-        "Hello " + document.getElementById("uname").value
-      + "!"
-      alert(response);
-    }
-    
-    function register() {
-        var response = 
-        "Hello " + document.getElementById("uname").value
-      + "!"
-      alert(response);
-    }
+    <script>
+        async function registerUser() {
+            console.log("registerUser()");
+            alert("registerUser()");
+            //call this endpoint
+            // http://localhost:8080/security/register?uname=default&pass=password
+        }
 
-    </script> -->
+        async function validateUser(uname = "", pass = "") {
+            console.log("We are in validateUser method");
+            alert("validateUser");
+            uname = document.getElementById("uname").value;
+            alert("User entered" + uname + " and " + pass);
+        }
+    </script>
 
 </body>
 
