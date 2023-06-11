@@ -7,15 +7,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/customlogin")
+// @RequestMapping(value = "/customlogin")
 public class HtmlController {
 
     //Mimicked from https://www.baeldung.com/spring-controllers
-    @GetMapping
-    public ModelAndView getLoginPage() {
+    @RequestMapping("/customlogin")
+    public ModelAndView customlogin () {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("customlogin");
         mv.getModel().put("data", "Login page");
+
+        return mv;
+    }
+    
+    @RequestMapping("/register")
+    public ModelAndView register () {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("register");
+        mv.getModel().put("data", "Registration page");
 
         return mv;
     }
