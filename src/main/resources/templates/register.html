@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Java Flights</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: lightgoldenrodyellow;
+            color: darkgoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Register</h1>
+    <p>Please enter account credentials</p>
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+        <button onclick="registerUser()">Register</button>
+    </div>
+
+    <script>
+
+        async function registerUser() {
+            let uname = document.getElementById("uname").value;
+            let pass = document.getElementById("psw").value;
+            let registerSuccess = await callRegisterEndpoint(uname, pass);
+            if (registerSuccess)
+                window.location.replace("http://localhost:8080/customlogin");
+            else
+                alert("Error! Problem registering with user credentials.");
+        }
+
+        async function callRegisterEndpoint(uname = "", pass = "") {
+            console.log("Passed to http request " + uname + " and " + pass);
+            let endpoint = "http://localhost:8080/security/register?uname=" + uname + "&pass=" + pass
+
+            try {
+                const config = {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                }
+                const response = await fetch(endpoint, config)
+                if (response.ok) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

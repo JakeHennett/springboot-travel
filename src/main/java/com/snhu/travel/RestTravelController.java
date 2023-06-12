@@ -46,7 +46,8 @@ public class RestTravelController {
 
         //points - https://api.weather.gov/points/35,-82
         String pointsUri = "https://api.weather.gov/points/" + latitude + "," + longitude;
-        String pointsStringResult = restTemplate.getForObject(pointsUri, String.class);
+        String pointsStringRaw = restTemplate.getForObject(pointsUri, String.class);
+        String pointsStringResult = (pointsStringRaw == null) ? "" : pointsStringRaw;   //catch a potential null on failed http request
 
         // "forecast": "https://api.weather.gov/gridpoints/JAX/50,93/forecast"
         // Use indexOf and substring to isolate the forecast url for the provided GPS coordinates.

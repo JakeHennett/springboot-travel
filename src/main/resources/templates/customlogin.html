@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Java Flights</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: lightgoldenrodyellow;
+            color: darkgoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Login</h1>
+    <p>Please enter your account credentials</p>
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+        <button onclick="validateUser()">Login</button>
+        <button onclick="loadRegistrationPage()">Register</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+
+    <script>
+        function loadRegistrationPage() {
+            window.location.href = "http://localhost:8080/register";
+        }
+
+        async function validateUser() {
+            let uname = document.getElementById("uname").value;
+            let pass = document.getElementById("psw").value;
+            let validUser = await callValidateEndpoint(uname, pass);
+            if (validUser)
+                window.location.href = "http://localhost:8080/flights";
+            else
+                alert("Invalid username or password");
+        }
+
+        async function callValidateEndpoint(uname = "", pass = "") {
+            console.log("Passed to http request " + uname + " and " + pass);
+            let endpoint = "http://localhost:8080/security/validate?uname=" + uname + "&pass=" + pass
+
+            try {
+                const config = {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                }
+                const response = await fetch(endpoint, config)
+                if (response.ok) {
+                    let responseJSON = await response.json();
+                    console.log(responseJSON);
+                    return responseJSON;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

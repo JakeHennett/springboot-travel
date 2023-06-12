@@ -42,7 +42,7 @@ public class RestSecurityController {
     @GetMapping(value = "/security/allusers")
     private List<User> getAllUsers() {
         String result = "";
-        List<User> userList = new ArrayList();
+        List<User> userList = new ArrayList<User>();
 
         // Instantiate the Factory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

@@ -8,6 +8,21 @@ function submit() {
     alert(response);
 }
 
+//moved the functions below to customlogin.html
+// async function registerUser() {
+//     console.log("registerUser()");
+//     alert("registerUser()");
+//     //call this endpoint
+//     // http://localhost:8080/security/register?uname=default&pass=password
+// }
+
+// async function validateUser(uname = "", pass = "") {
+//     console.log("We are in validateUser method");
+//     alert("validateUser");
+//     uname = document.getElementById("uname").value;
+//     alert("User entered" + uname + " and " + pass);
+// }
+
 async function getAccessToken() {
     let accessToken = ""
     let url = "https://test.api.amadeus.com/v1/security/oauth2/token"
