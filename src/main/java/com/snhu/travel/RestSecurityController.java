@@ -33,6 +33,7 @@ public class RestSecurityController {
 
     private static final String FILENAME = "c:\\test\\users.xml";
 
+    //Health check endpoint to determine if security endpoints are live
     @RequestMapping("/security")
     public String securityTest() {
         return "test security endpoints";
@@ -115,6 +116,20 @@ public class RestSecurityController {
         // TODO: Add some conditions at this level. No duplicate users, etc.
         // TODO: Make it a POST and not a GET
         addUser(uname, pass);
+    }
+
+    // http://localhost:8080/security/delete?uname=default
+    @GetMapping(value = "/security/delete")
+    private void deleteUser(@RequestParam String uname) {
+        // TODO: Make it a DELETE and not a GET
+        deleteByUsername(uname);
+    }
+
+    //Accept a username and delete the corresponding user record from the XML file.
+    private boolean deleteByUsername(String uname) {
+        boolean result = false;
+        //TODO: Create logic to search for provided username and delete that record
+        return result;
     }
 
     private boolean addUser(String uname, String pass) {
