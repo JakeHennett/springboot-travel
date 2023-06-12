@@ -34,21 +34,9 @@
         </label>
     </div>
 
-    <!--
-         <script src="scripts.js"></script>
-    Scripts file isn't refreshing in devtools. Moving scripts to tags below for now
- -->
-
     <script>
         function loadRegistrationPage() {
             window.location.href = "http://localhost:8080/register";
-        }
-
-        async function registerUser() {
-            console.log("registerUser()");
-            alert("registerUser()");
-            //call this endpoint
-            // http://localhost:8080/security/register?uname=default&pass=password
         }
 
         async function validateUser() {
