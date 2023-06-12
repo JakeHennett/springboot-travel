@@ -28,6 +28,15 @@ public class HtmlController {
 
         return mv;
     }
+    
+    @RequestMapping("/flights")
+    public ModelAndView flights () {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("flights");
+        mv.getModel().put("data", "Flights");
+
+        return mv;
+    }
 
     public String index(Model model){
         return "index";
