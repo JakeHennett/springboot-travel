@@ -51,6 +51,8 @@ class TravelApplicationTests {
 
 	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
 	public void ableToCreateUser() throws Exception {
+		//Purge unittest user before attempting to add
+		this.restTemplate.getForObject("http://localhost:" + port + "/security/delete?uname=unittest&pass=testuser", String.class);
 		String endpoint = "http://localhost:" + port + "/security/register?uname=unittest&pass=testuser";
 		String expectedResponse = null;
 		//TODO: Check response code rather than response body.
@@ -61,7 +63,7 @@ class TravelApplicationTests {
 	public void ableToValidateUser() throws Exception {
 		String endpoint = "http://localhost:" + port + "/security/validate?uname=unittest&pass=testuser";
 		String expectedResponse = "";
-		assertThat(this.restTemplate.getForObject(endpoint, String.class)).contains(expectedResponse);
+		assertThat(this.restTemplate.getForObject(endpoint, Boolean.class)).isTrue();
 	}
 
 	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
