@@ -2,7 +2,9 @@ package com.snhu.travel;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -110,6 +112,7 @@ public class RestSecurityController {
         return false;
     }
 
+    //TODO: Change registerUser references to use the new POST
     // http://localhost:8080/security/register?uname=default&pass=password
     @GetMapping(value = "/security/register")
     private void registerUser(@RequestParam String uname, @RequestParam String pass) {
@@ -118,9 +121,24 @@ public class RestSecurityController {
         addUser(uname, pass);
     }
 
+    // http://localhost:8080/security/register?uname=default&pass=password
+    @PostMapping(value = "/security/register")
+    private void registerUserPost(@RequestParam String uname, @RequestParam String pass) {
+        // TODO: Add some conditions at this level. No duplicate users, etc.
+        // TODO: Make it a POST and not a GET
+        addUser(uname, pass);
+    }
+
     // http://localhost:8080/security/delete?uname=default
     @GetMapping(value = "/security/delete")
     private void deleteUser(@RequestParam String uname) {
+        // TODO: Make it a DELETE and not a GET
+        deleteByUsername(uname);
+    }
+
+    // http://localhost:8080/security/delete?uname=default
+    @DeleteMapping(value = "/security/delete")
+    private void deleteUserDelete(@RequestParam String uname) {
         // TODO: Make it a DELETE and not a GET
         deleteByUsername(uname);
     }
