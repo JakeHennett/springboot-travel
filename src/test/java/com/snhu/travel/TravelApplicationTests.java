@@ -30,7 +30,8 @@ class TravelApplicationTests {
 	// 			String.class)).contains("please fail");
 	// }
 
-	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
+	//This is effectively just a template test. It will work, but it should be used as a base to populate.
+	@Test
 	public void testName() throws Exception {
 		String endpoint = "http://localhost:" + port + "/";
 		String expectedResponse = "";
@@ -49,7 +50,7 @@ class TravelApplicationTests {
 				String.class)).contains("test security endpoints");
 	}
 
-	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
+	@Test
 	public void ableToCreateUser() throws Exception {
 		//Purge unittest user before attempting to add
 		this.restTemplate.getForObject("http://localhost:" + port + "/security/delete?uname=unittest&pass=testuser", String.class);
@@ -59,14 +60,14 @@ class TravelApplicationTests {
 		assertThat(this.restTemplate.getForObject(endpoint, String.class)).isNullOrEmpty();
 	}
 
-	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
+	@Test
 	public void ableToValidateUser() throws Exception {
 		String endpoint = "http://localhost:" + port + "/security/validate?uname=unittest&pass=testuser";
 		String expectedResponse = "";
 		assertThat(this.restTemplate.getForObject(endpoint, Boolean.class)).isTrue();
 	}
 
-	@Test	//This is effectively just a template test. It will work, but it should be used as a base to populate.
+	@Test
 	public void ableToDeleteUser() throws Exception {
 		String endpoint = "http://localhost:" + port + "/security/delete?uname=unittest&pass=testuser";
 		String expectedResponse = null;
